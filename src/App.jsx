@@ -62,7 +62,6 @@ export default function App() {
     const [selectedPhoto] = photos.filter(photo => photo.id === id);
     setModalContent(selectedPhoto);
   }
-
   return (
     <>
       <SearchBar onSubmit={onFormSubmit} />
