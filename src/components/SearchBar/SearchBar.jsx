@@ -20,11 +20,7 @@ export default function SearchBar({ onSubmit }) {
         <Form className={css.form}>
           <div className={css.fieldWrapper}>
             <button className={css.button} type="submit">
-              <img
-                className={css.searchIcon}
-                src="./img/searchIcon.svg"
-                alt="Search"
-              />
+              <img className={css.searchIcon} src="/src/img/searchIcon.svg" alt="Search" />
             </button>
             <Field
               className={css.input}
