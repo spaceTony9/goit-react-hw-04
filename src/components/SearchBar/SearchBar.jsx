@@ -1,6 +1,7 @@
 import { Field, Form, Formik } from 'formik';
 import toast, { Toaster } from 'react-hot-toast';
 import css from './SearchBar.module.css';
+import searchIcon from '/src/img/searchIcon.svg';
 
 export default function SearchBar({ onSubmit }) {
   const notify = () => toast('Please type a desired word.');
@@ -20,7 +21,7 @@ export default function SearchBar({ onSubmit }) {
         <Form className={css.form}>
           <div className={css.fieldWrapper}>
             <button className={css.button} type="submit">
-              <img className={css.searchIcon} src="/src/img/searchIcon.svg" alt="Search" />
+              <img className={css.searchIcon} src={searchIcon} alt="Search" />
             </button>
             <Field
               className={css.input}
