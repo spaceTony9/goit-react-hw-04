@@ -7,10 +7,7 @@ import {
 import { useEffect, useState } from 'react';
 import { Blocks } from 'react-loader-spinner';
 import fetchPhotosWithKeyWord from './apiService.js';
-import Modal from 'react-modal';
 import './App.css';
-
-Modal.setAppElement(document.getElementById('root'));
 
 export default function App() {
   const [query, setQuery] = useState('');
