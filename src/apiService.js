@@ -5,7 +5,7 @@ export default async function fetchPhotosWithKeyWord(keyword, page) {
     baseURL: 'https://api.unsplash.com/',
     headers: { 'Accept-Version': 'v1' },
     params: {
-      client_id: '1ctU6kuTt2ahGNIdcLlG3-NmcIRESl6UxJvupJGrReY1',
+      client_id: '1ctU6kuTt2ahGNIdcLlG3-NmcIRESl6UxJvupJGrReY',
       query: keyword,
       page,
       per_page: 12,
