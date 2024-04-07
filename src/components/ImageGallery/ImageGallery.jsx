@@ -1,16 +1,23 @@
 import { ImageCard } from '../index.js';
+import css from './ImageGallery.module.css';
 
-export default function ImageGallery({ photos }) {
+export default function ImageGallery({ photos, openModal, modalContent }) {
+  function handleClick(id) {
+    modalContent(id);
+    openModal();
+  }
+
   return (
-    <main>
-      <ul>
-        {photos.map(photo => (
-          <li key={photo.id}>
-            <ImageCard desc={photo.description} link={photo.urls.small} />
-          </li>
-        ))}
-        <li></li>
-      </ul>
-    </main>
+    <ul className={css.galleryList}>
+      {photos.map(photo => (
+        <li
+          className={css.galleryListItem}
+          key={photo.id}
+          onClick={() => handleClick(photo.id)}
+        >
+          <ImageCard desc={photo.alt_description} link={photo.urls.small} />
+        </li>
+      ))}
+    </ul>
   );
 }
