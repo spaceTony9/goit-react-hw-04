@@ -22,7 +22,7 @@ export default function SearchBar({ onSubmit }) {
             <button className={css.button} type="submit">
               <img
                 className={css.searchIcon}
-                src="/src/img/searchIcon.svg"
+                src="./img/searchIcon.svg"
                 alt="Search"
               />
             </button>
