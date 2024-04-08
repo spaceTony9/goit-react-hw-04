@@ -40,9 +40,9 @@ export default function App() {
   }, [query, page, formSubmitted]);
 
   function onFormSubmit(searchedWord) {
-    setQuery(searchedWord);
-    if (query !== searchedWord) {
+    if (query.toLowerCase() !== searchedWord.toLowerCase()) {
       setPhotos([]);
+      setQuery(searchedWord);
     }
     setPage(1);
     setFormSubmitted(true);
