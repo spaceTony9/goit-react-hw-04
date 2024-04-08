@@ -75,10 +75,8 @@ export default function App() {
         />
         {error && <ErrorMessage />}
         {loading && <Loader />}
-        {photos.length ? (
+        {photos.length > 0 && (
           <LoadMoreBtn handleLoadMoreBtnClick={handleLoadMoreBtnClick} />
-        ) : (
-          ''
         )}
         <ImageModal
           modalContent={contentForModal}
