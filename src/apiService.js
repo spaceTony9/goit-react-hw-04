@@ -15,7 +15,7 @@ export default async function fetchPhotosWithKeyWord(keyword, page) {
     const response = await instance.get('/search/photos');
     return response.data.results;
   } catch (error) {
-    console.error('Error fetching photos:', error);
+    console.error('ErrorMessage fetching photos:', error);
     throw error;
   }
 }

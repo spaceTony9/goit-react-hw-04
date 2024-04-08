@@ -1,11 +1,12 @@
 import {
   SearchBar,
   ImageGallery,
-  Error,
+  ErrorMessage,
   ImageModal,
+  LoadMoreBtn,
+  Loader,
 } from './components/index.js';
 import { useEffect, useState } from 'react';
-import { Blocks } from 'react-loader-spinner';
 import fetchPhotosWithKeyWord from './apiService.js';
 import './App.css';
 
@@ -17,7 +18,8 @@ export default function App() {
   const [page, setPage] = useState(1);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [modalContent, setModalContent] = useState();
+  const [modalFilter, setModalFilter] = useState();
+  const [contentForModal] = photos.filter(photo => photo.id === modalFilter);
 
   useEffect(() => {
     async function fetchPhotos() {
@@ -46,7 +48,7 @@ export default function App() {
     setFormSubmitted(true);
   }
 
-  function handleSeeMoreBtnClick() {
+  function handleLoadMoreBtnClick() {
     setPage(prevState => prevState + 1);
   }
 
@@ -59,9 +61,9 @@ export default function App() {
   }
 
   function createModalContent(id) {
-    const [selectedPhoto] = photos.filter(photo => photo.id === id);
-    setModalContent(selectedPhoto);
+    setModalFilter(id);
   }
+
   return (
     <>
       <SearchBar onSubmit={onFormSubmit} />
@@ -71,35 +73,15 @@ export default function App() {
           openModal={openModal}
           photos={photos}
         />
-        {error && <Error />}
-        {loading && (
-          <div className="loaderWrapper">
-            <Blocks
-              height="80"
-              width="80"
-              color="#17a9e3"
-              ariaLabel="blocks-loading"
-              wrapperStyle={{}}
-              wrapperClass="blocks-wrapper"
-              visible={true}
-            />
-          </div>
-        )}
+        {error && <ErrorMessage />}
+        {loading && <Loader />}
         {photos.length ? (
-          <div className="seeMoreBtnWrapper">
-            <button
-              className="seeMoreBtn"
-              type="button"
-              onClick={handleSeeMoreBtnClick}
-            >
-              Load More
-            </button>
-          </div>
+          <LoadMoreBtn handleLoadMoreBtnClick={handleLoadMoreBtnClick} />
         ) : (
           ''
         )}
         <ImageModal
-          modalContent={modalContent}
+          modalContent={contentForModal}
           isOpen={modalIsOpen}
           closeModal={closeModal}
         />
