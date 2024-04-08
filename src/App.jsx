@@ -16,29 +16,29 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
-  const [formSubmitted, setFormSubmitted] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalFilter, setModalFilter] = useState();
   const [contentForModal] = photos.filter(photo => photo.id === modalFilter);
 
   useEffect(() => {
     async function fetchPhotos() {
-      if (formSubmitted) {
-        try {
-          setError(false);
-          setLoading(true);
-          const apiRequest = await fetchPhotosWithKeyWord(query, page);
-          setPhotos(prevState => [...prevState, ...apiRequest]);
-        } catch {
-          setError(true);
-        } finally {
-          setLoading(false);
-        }
+      if (query === '') {
+        return;
+      }
+      try {
+        setError(false);
+        setLoading(true);
+        const apiRequest = await fetchPhotosWithKeyWord(query, page);
+        setPhotos(prevState => [...prevState, ...apiRequest]);
+      } catch {
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     }
 
     fetchPhotos();
-  }, [query, page, formSubmitted]);
+  }, [query, page]);
 
   function onFormSubmit(searchedWord) {
     if (query.toLowerCase() !== searchedWord.toLowerCase()) {
@@ -46,7 +46,6 @@ export default function App() {
       setQuery(searchedWord);
     }
     setPage(1);
-    setFormSubmitted(true);
   }
 
   function handleLoadMoreBtnClick() {
@@ -76,7 +75,7 @@ export default function App() {
         />
         {error && <ErrorMessage />}
         {loading && <Loader />}
-        {photos.length > 0 && (
+        {photos.length > 0 && !loading && (
           <LoadMoreBtn handleLoadMoreBtnClick={handleLoadMoreBtnClick} />
         )}
         <ImageModal
