@@ -1,12 +1,6 @@
 import css from './ImageCard.module.css';
 
-export default function ImageCard({
-  desc,
-  link,
-  openModal,
-  photoId,
-  modalContent,
-}) {
+function ImageCard({ desc, link, openModal, photoId, modalContent }) {
   function handleClick(id) {
     modalContent(id);
     openModal();
@@ -23,3 +17,5 @@ export default function ImageCard({
     </div>
   );
 }
+
+export default ImageCard;

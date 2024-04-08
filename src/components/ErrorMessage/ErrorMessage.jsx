@@ -1,6 +1,6 @@
 import bugImg from '/src/img/bug.png';
 
-export default function ErrorMessage() {
+function ErrorMessage() {
   return (
     <div>
       <img alt="bug icon" src={bugImg} height="200px" width="200px" />
@@ -8,3 +8,5 @@ export default function ErrorMessage() {
     </div>
   );
 }
+
+export default ErrorMessage;

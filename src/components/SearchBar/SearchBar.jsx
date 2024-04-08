@@ -3,7 +3,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import css from './SearchBar.module.css';
 import searchIcon from '/src/img/searchIcon.svg';
 
-export default function SearchBar({ onSubmit }) {
+function SearchBar({ onSubmit }) {
   const notify = () => toast('Please type a desired word.');
 
   function handleSubmit(values, actions) {
@@ -34,7 +34,9 @@ export default function SearchBar({ onSubmit }) {
           </div>
         </Form>
       </Formik>
-      <Toaster />
+      <Toaster position={top.right} />
     </header>
   );
 }
+
+export default SearchBar;

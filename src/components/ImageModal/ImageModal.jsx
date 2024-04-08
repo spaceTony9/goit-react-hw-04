@@ -1,7 +1,7 @@
 import Modal from 'react-modal';
 import css from './ImageModal.module.css';
 
-export default function ImageModal({ isOpen, closeModal, modalContent }) {
+function ImageModal({ isOpen, closeModal, modalContent }) {
   return (
     <div>
       <Modal
@@ -36,3 +36,5 @@ export default function ImageModal({ isOpen, closeModal, modalContent }) {
     </div>
   );
 }
+
+export default ImageModal;

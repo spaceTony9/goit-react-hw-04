@@ -1,7 +1,7 @@
 import { ImageCard } from '../index.js';
 import css from './ImageGallery.module.css';
 
-export default function ImageGallery({ photos, openModal, modalContent }) {
+function ImageGallery({ photos, openModal, modalContent }) {
   return (
     <ul className={css.galleryList}>
       {photos.map(photo => (
@@ -18,3 +18,5 @@ export default function ImageGallery({ photos, openModal, modalContent }) {
     </ul>
   );
 }
+
+export default ImageGallery;
