@@ -34,7 +34,7 @@ function SearchBar({ onSubmit }) {
           </div>
         </Form>
       </Formik>
-      <Toaster position={top.right} />
+      <Toaster position="top.right" />
     </header>
   );
 }
