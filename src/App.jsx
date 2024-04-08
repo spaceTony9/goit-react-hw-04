@@ -25,6 +25,7 @@ export default function App() {
     async function fetchPhotos() {
       if (formSubmitted) {
         try {
+          setError(false);
           setLoading(true);
           const apiRequest = await fetchPhotosWithKeyWord(query, page);
           setPhotos(prevState => [...prevState, ...apiRequest]);
