@@ -13,7 +13,8 @@ export default async function fetchPhotosWithKeyWord(keyword, page) {
   });
   try {
     const response = await instance.get('/search/photos');
-    return response.data.results;
+    response.data.page = page;
+    return response.data;
   } catch (error) {
     console.error('ErrorMessage fetching photos:', error);
     throw error;

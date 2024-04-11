@@ -4,7 +4,7 @@ import css from './ImageGallery.module.css';
 function ImageGallery({ photos, openModal, modalContent }) {
   return (
     <ul className={css.galleryList}>
-      {photos.map(photo => (
+      {photos?.map(photo => (
         <li className={css.galleryListItem} key={photo.id}>
           <ImageCard
             openModal={openModal}

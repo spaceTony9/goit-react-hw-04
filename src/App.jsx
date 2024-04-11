@@ -9,47 +9,42 @@ import {
 import { useEffect, useState } from 'react';
 import fetchPhotosWithKeyWord from './apiService.js';
 import './App.css';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function App() {
   const [query, setQuery] = useState('');
-  const [photos, setPhotos] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [page, setPage] = useState(1);
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [modalFilter, setModalFilter] = useState();
-  const [contentForModal] = photos.filter(photo => photo.id === modalFilter);
-
-  useEffect(() => {
-    async function fetchPhotos() {
-      if (query === '') {
-        return;
-      }
-      try {
-        setError(false);
-        setLoading(true);
-        const apiRequest = await fetchPhotosWithKeyWord(query, page);
-        setPhotos(prevState => [...prevState, ...apiRequest]);
-      } catch {
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchPhotos();
-  }, [query, page]);
+  const [modalFilterValue, setModalFilter] = useState();
+  const queryClient = useQueryClient();
+  const {
+    data: photos,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isError,
+    isLoading,
+    error,
+  } = useInfiniteQuery({
+    queryKey: ['photos', query],
+    queryFn: ({ pageParam = 1 }) => fetchPhotosWithKeyWord(query, pageParam),
+    enabled: !!query,
+    keepPreviousData: true,
+    getNextPageParam: lastPage => {
+      return lastPage.page + 1;
+    },
+  });
+  const flatPhotos = photos?.pages?.map(page => page.results).flat();
+  const [contentForModal] =
+    flatPhotos?.filter(photo => photo.id === modalFilterValue) || [];
 
   function onFormSubmit(searchedWord) {
     if (query.toLowerCase() !== searchedWord.toLowerCase()) {
-      setPhotos([]);
       setQuery(searchedWord);
     }
-    setPage(1);
   }
 
   function handleLoadMoreBtnClick() {
-    setPage(prevState => prevState + 1);
+    fetchNextPage();
   }
 
   function openModal() {
@@ -71,11 +66,11 @@ export default function App() {
         <ImageGallery
           modalContent={createModalContent}
           openModal={openModal}
-          photos={photos}
+          photos={flatPhotos}
         />
         {error && <ErrorMessage />}
-        {loading && <Loader />}
-        {photos.length > 0 && !loading && (
+        {isFetching && <Loader />}
+        {hasNextPage && (
           <LoadMoreBtn handleLoadMoreBtnClick={handleLoadMoreBtnClick} />
         )}
         <ImageModal
