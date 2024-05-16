@@ -21,8 +21,6 @@ export default function App() {
     fetchNextPage,
     hasNextPage,
     isFetching,
-    isError,
-    isLoading,
     error,
   } = useInfiniteQuery({
     queryKey: ['photos', query],
@@ -32,8 +30,6 @@ export default function App() {
     getNextPageParam: lastPage => {
       return lastPage.page + 1;
     },
-    retry: 3,
-    refetchOnMount: false,
   });
   const flatPhotos = photos?.pages?.map(page => page.results).flat();
   const [contentForModal] =
